@@ -16,33 +16,33 @@ function printLinesRecursively(
     const absoluteContentPath = nodePath.join(absoluteDirPath, name);
     const isDirectory = fs.lstatSync(absoluteContentPath).isDirectory();
 
-    let specSymbol = '';
+    let specBranch = '';
 
     if (isLastContent) {
-      specSymbol = SYMBOLS.LAST_BRANCH;
+      specBranch = SYMBOLS.LAST_BRANCH;
       if (isDirectory) {
         newIndentContext = indentContext + SYMBOLS.INDENT;
       }
     }
     if (!isLastContent) {
-      specSymbol = SYMBOLS.BRANCH;
+      specBranch = SYMBOLS.BRANCH;
       newIndentContext = indentContext + SYMBOLS.VERTICAL;
     }
 
-    process.stdout.write(`${indentContext}${specSymbol} ${name}\n`);
+    process.stdout.write(
+        `${indentContext}${specBranch} ${name}${isDirectory ? '/' : ''}\n`,
+    );
 
-    if (isDirectory) {
+    if (isDirectory && depth < options['max-depth']) {
       const dir = fs.readdirSync(absoluteContentPath);
-      if (depth < options['max-depth']) {
-        dir.forEach(
-            printLinesRecursively(
-                depth + 1,
-                absoluteContentPath,
-                newIndentContext,
-                options,
-            ),
-        );
-      }
+      dir.forEach(
+          printLinesRecursively(
+              depth + 1,
+              absoluteContentPath,
+              newIndentContext,
+              options,
+          ),
+      );
     }
   };
 }
