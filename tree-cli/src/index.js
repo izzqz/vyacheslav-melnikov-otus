@@ -1,13 +1,19 @@
-const fs = require('fs');
-const nodePath = require('path');
+const mri = require('mri');
 
-const printLinesRecursively = require('./printer');
+const tree = require('./tree');
 
-const path = process.argv.slice(2)[0] || '.';
+const argv = process.argv.slice(2);
+const userOptions = mri(argv, {
+  alias: {
+    d: 'max-depth',
+  },
+});
+const defaultOptions = {
+  'max-depth': -1,
+};
 
-const rootDir = fs.readdirSync(path);
-const absoluteDirPath = nodePath.join(process.cwd(), path);
+const combinedOptions = Object.assign(defaultOptions, userOptions);
 
-rootDir.forEach(printLinesRecursively(0, absoluteDirPath));
+const rootPath = userOptions._[0];
 
-
+tree(rootPath, combinedOptions);

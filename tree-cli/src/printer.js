@@ -3,7 +3,12 @@ const nodePath = require('path');
 
 const SYMBOLS = require('./constants');
 
-function printLinesRecursively(depth, absoluteDirPath, indentContext = '') {
+function printLinesRecursively(
+    depth,
+    absoluteDirPath,
+    indentContext = '',
+    options,
+) {
   let newIndentContext;
 
   return function printLine(name, index, directory) {
@@ -15,6 +20,9 @@ function printLinesRecursively(depth, absoluteDirPath, indentContext = '') {
 
     if (isLastContent) {
       specSymbol = SYMBOLS.LAST_BRANCH;
+      if (isDirectory) {
+        newIndentContext = indentContext + SYMBOLS.INDENT;
+      }
     }
     if (!isLastContent) {
       specSymbol = SYMBOLS.BRANCH;
@@ -23,14 +31,15 @@ function printLinesRecursively(depth, absoluteDirPath, indentContext = '') {
 
     process.stdout.write(`${indentContext}${specSymbol} ${name}\n`);
 
-    if (isDirectory && isLastContent) {
-      newIndentContext = indentContext + SYMBOLS.INDENT;
-    }
-
     if (isDirectory) {
       const dir = fs.readdirSync(absoluteContentPath);
       dir.forEach(
-        printLinesRecursively(depth + 1, absoluteContentPath, newIndentContext),
+          printLinesRecursively(
+              depth + 1,
+              absoluteContentPath,
+              newIndentContext,
+              options,
+          ),
       );
     }
   };

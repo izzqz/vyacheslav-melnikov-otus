@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js"
   },
+  "bin": "./bin/tree",
   "author": "Vyacheslav Melnikov <zzq.one@zzq.one>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mri": "^1.1.6"
+  }
 }

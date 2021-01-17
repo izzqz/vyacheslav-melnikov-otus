@@ -1,0 +1,10 @@
+#!/bin/node --harmony
+
+const tree = require('../src/tree.js')
+
+process.title = 'tree';
+
+const path = process.argv.slice(2)[0] || '.'
+const maxDepth = process
+
+tree(path)
