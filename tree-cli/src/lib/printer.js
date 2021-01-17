@@ -1,7 +1,8 @@
 const fs = require('fs');
 const nodePath = require('path');
 
-const SYMBOLS = require('./constants');
+const SYMBOLS = require('../constants');
+const Counter = require('./counter');
 
 function printLinesRecursively(
     depth,
@@ -17,6 +18,12 @@ function printLinesRecursively(
     const isDirectory = fs.lstatSync(absoluteContentPath).isDirectory();
 
     let specBranch = '';
+
+    if (isDirectory) {
+      Counter.plusDirectory();
+    } else {
+      Counter.plusFile();
+    }
 
     if (isLastContent) {
       specBranch = SYMBOLS.LAST_BRANCH;

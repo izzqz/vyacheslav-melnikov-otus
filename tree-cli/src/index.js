@@ -8,6 +8,7 @@ const userOptions = mri(argv, {
     d: 'max-depth',
   },
 });
+
 const defaultOptions = {
   'max-depth': Infinity,
 };

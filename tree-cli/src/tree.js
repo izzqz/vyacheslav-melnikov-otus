@@ -1,7 +1,8 @@
 const fs = require('fs');
 const nodePath = require('path');
 
-const printLinesRecursively = require('./printer');
+const printLinesRecursively = require('./lib/printer');
+const Counter = require('./lib/counter');
 
 function tree(path = '.', options) {
   const rootDir = fs.readdirSync(path);
@@ -9,6 +10,7 @@ function tree(path = '.', options) {
 
   process.stdout.write(`${absoluteDirPath}\n`);
   rootDir.forEach(printLinesRecursively(0, absoluteDirPath, '', options));
+  process.stdout.write(`${Counter.directories} directories, ${Counter.files} files\n`);
 }
 
 module.exports = tree;
