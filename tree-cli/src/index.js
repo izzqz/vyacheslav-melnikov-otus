@@ -9,7 +9,7 @@ const userOptions = mri(argv, {
   },
 });
 const defaultOptions = {
-  'max-depth': -1,
+  'max-depth': Infinity,
 };
 
 const combinedOptions = Object.assign(defaultOptions, userOptions);

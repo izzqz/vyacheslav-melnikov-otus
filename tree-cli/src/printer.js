@@ -33,14 +33,16 @@ function printLinesRecursively(
 
     if (isDirectory) {
       const dir = fs.readdirSync(absoluteContentPath);
-      dir.forEach(
-          printLinesRecursively(
-              depth + 1,
-              absoluteContentPath,
-              newIndentContext,
-              options,
-          ),
-      );
+      if (depth < options['max-depth']) {
+        dir.forEach(
+            printLinesRecursively(
+                depth + 1,
+                absoluteContentPath,
+                newIndentContext,
+                options,
+            ),
+        );
+      }
     }
   };
 }
