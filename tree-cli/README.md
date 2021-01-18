@@ -37,7 +37,7 @@ C:\Users\ZZQ\Projects\vyacheslav-melnikov-otus\tree-cli
 ### Installation
 *cmd/shell*
 ```text
-git clone # Clone repository
+git clone https://github.com/mr-zzq/vyacheslav-melnikov-otus.git # Clone repository
 cd vyacheslav-melnikov-otus\tree-cli
 npm install # Install dependencies
 npm link # Create global link
