@@ -1,10 +1,12 @@
 const fs = require('fs');
 const nodePath = require('path');
 
-const SYMBOLS = require('../constants');
-const Counter = require('./counter');
+const SYMBOLS = require('../constants.js');
+const Counter = require('./counter.js');
 
-function printLinesRecursively(
+// FIXME: Error: EPERM: operation not permitted
+
+function getPrinterFunction(
     depth,
     absoluteDirPath,
     indentContext = '',
@@ -31,19 +33,20 @@ function printLinesRecursively(
         newIndentContext = indentContext + SYMBOLS.INDENT;
       }
     }
+
     if (!isLastContent) {
       specBranch = SYMBOLS.BRANCH;
       newIndentContext = indentContext + SYMBOLS.VERTICAL;
     }
 
     process.stdout.write(
-        `${indentContext}${specBranch} ${name}${isDirectory ? '/' : ''}\n`,
+        `${indentContext}${specBranch} ${name}${isDirectory ? nodePath.sep : ''}\n`,
     );
 
-    if (isDirectory && depth < options['max-depth']) {
+    if (isDirectory && depth < options.depth) {
       const dir = fs.readdirSync(absoluteContentPath);
       dir.forEach(
-          printLinesRecursively(
+          getPrinterFunction(
               depth + 1,
               absoluteContentPath,
               newIndentContext,
@@ -54,4 +57,4 @@ function printLinesRecursively(
   };
 }
 
-module.exports = printLinesRecursively;
+module.exports = getPrinterFunction;

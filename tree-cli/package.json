@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js"
   },
-  "bin": "./bin/tree",
+  "bin": {
+    "tree-vm": "./bin/tree-vm"
+  },
   "author": "Vyacheslav Melnikov <zzq.one@zzq.one>",
   "license": "MIT",
   "dependencies": {

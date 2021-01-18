@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 const mri = require('mri');
 
-const tree = require('./tree.js');
+const tree = require('../src/tree.js');
 
 const argv = process.argv.slice(2);
 const userOptions = mri(argv, {
